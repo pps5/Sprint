@@ -1,9 +1,10 @@
-package io.github.pps5.sprint
+package io.github.pps5.sprint.property
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -19,9 +20,9 @@ class NavControllerProperty(
     override fun getValue(thisRef: Fragment, property: KProperty<*>): NavController {
         val observer = object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-            fun onDestroyView() {
+            fun onDestroyView(lifecycleOwner: LifecycleOwner) {
                 navController = null
-                thisRef.viewLifecycleOwner.lifecycle.removeObserver(this)
+                lifecycleOwner.lifecycle.removeObserver(this)
             }
         }
         if (navController == null) {
