@@ -1,2 +1,5 @@
 include ':app'
 rootProject.name = "Sprint"
+include ':domain'
+include ':mylibrary'
+include ':mylibrary'

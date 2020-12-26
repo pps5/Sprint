@@ -1,21 +1,20 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
 }
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "io.github.pps5.sprint"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -25,6 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -41,43 +41,18 @@ android {
             useJUnitPlatform()
         }
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
-
-    implementation project(':domain')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-    def nav_version = "2.3.2"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
-    def lifecycle_version = "2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-
-    def groupie_version = "2.8.1"
-    implementation "com.xwray:groupie:$groupie_version"
-    implementation "com.xwray:groupie-viewbinding:$groupie_version"
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.3.0'
     testImplementation('org.threeten:threetenbp:1.5.0') {
         exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
     }
 
-    testImplementation 'junit:junit:4.13.1'
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.2"
     testImplementation "org.junit.jupiter:junit-jupiter-params:5.6.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.2"
     testImplementation "com.google.truth:truth:1.1"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
