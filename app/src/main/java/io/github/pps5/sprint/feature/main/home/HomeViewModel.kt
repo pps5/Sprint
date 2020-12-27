@@ -3,8 +3,10 @@ package io.github.pps5.sprint.feature.main.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.pps5.sprint.domain.goal.DailyGoal
+import io.github.pps5.sprint.domain.goal.Goal
 import io.github.pps5.sprint.domain.goal.MonthlyGoal
 import io.github.pps5.sprint.domain.goal.WeeklyGoal
+import io.github.pps5.sprint.domain.valueobject.GoalTitle
 import io.github.pps5.sprint.domain.valueobject.Option
 import io.github.pps5.sprint.domain.valueobject.Week
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,7 +25,38 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             _state.emit(
                 State(
-                    dailyGoals = emptyList(),
+                    dailyGoals = listOf(
+                        DailyGoal(
+                            LocalDate.of(2020, 12, 28),
+                            Option.apply(GoalTitle("Create app")),
+                            Option.None()
+                        ),
+                        DailyGoal(
+                            LocalDate.of(2020, 12, 29),
+                            Option.None(),
+                            Option.None()
+                        ),
+                        DailyGoal(
+                            LocalDate.of(2020, 12, 30),
+                            Option.apply(GoalTitle("Sample Goal")),
+                            Option.None()
+                        ),
+                        DailyGoal(
+                            LocalDate.of(2020, 12, 31),
+                            Option.None(),
+                            Option.None()
+                        ),
+                        DailyGoal(
+                            LocalDate.of(2021, 1, 1),
+                            Option.apply(GoalTitle("Sample Goal")),
+                            Option.None()
+                        ),
+                        DailyGoal(
+                            LocalDate.of(2021, 1, 2),
+                            Option.None(),
+                            Option.None()
+                        ),
+                    ),
                     weeklyGoal = WeeklyGoal(
                         Week(LocalDate.of(2020, 12, 28)),
                         Option.None(),
@@ -38,6 +71,10 @@ class HomeViewModel : ViewModel() {
             )
             // todo: load from DB here
         }
+    }
+
+    fun onCompleteGoal(goal: Goal) {
+        // todo: update DB
     }
 
     data class State(

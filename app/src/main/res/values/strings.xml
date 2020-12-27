@@ -6,6 +6,6 @@
     <string name="menu_history">History</string>
 
     <string name="set_goal">Set Goal</string>
-    <string name="set_monthly_goal">Set monthly goal</string>
-    <string name="set_weekly_goal">Set weekly goal</string>
+    <string name="complete">Complete</string>
+    <string name="tap_to_input_goal">Tap to input goal</string>
 </resources>

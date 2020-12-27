@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/container"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <include
+            android:id="@+id/monthly"
+            layout="@layout/item_goal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:layout_marginStart="@dimen/card_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/card_horizontal_margin" />
+
+        <include
+            android:id="@+id/weekly"
+            layout="@layout/item_goal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:layout_marginStart="@dimen/card_horizontal_margin"
+            android:layout_marginTop="@dimen/item_margin"
+            android:layout_marginEnd="@dimen/card_horizontal_margin" />
+
+        <include
+            android:id="@+id/daily_goals"
+            layout="@layout/item_daily_goals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_margin" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
