@@ -1,7 +1,7 @@
 package io.github.pps5.sprint.feature.main.home.view.binder
 
 import io.github.pps5.sprint.databinding.ItemGoalBinding
-import io.github.pps5.sprint.domain.goal.Goal
+import io.github.pps5.sprint.domain.entity.goal.Goal
 
 fun ItemGoalBinding.update(
     newGoal: Goal,

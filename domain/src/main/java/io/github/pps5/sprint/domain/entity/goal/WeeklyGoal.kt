@@ -1,4 +1,4 @@
-package io.github.pps5.sprint.domain.goal
+package io.github.pps5.sprint.domain.entity.goal
 
 import io.github.pps5.sprint.domain.valueobject.GoalTitle
 import io.github.pps5.sprint.domain.valueobject.Option
@@ -15,15 +15,15 @@ data class WeeklyGoal(
 
     companion object {
         private const val DATE_PATTERN = "yyyy/MM/dd"
-        private const val DATE_SEPARATOR = "-"
+        private const val DATE_STRING_FORMAT = "%s - %s"
     }
 
     override fun getDateString(): String {
         val formatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
-        return StringBuilder()
-            .append(formatter.format(week.start))
-            .append(DATE_SEPARATOR)
-            .append(formatter.format(week.end))
-            .toString()
+        return String.format(
+            DATE_STRING_FORMAT,
+            formatter.format(week.start),
+            formatter.format(week.end),
+        )
     }
 }

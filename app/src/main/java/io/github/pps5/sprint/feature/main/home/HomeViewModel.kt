@@ -2,10 +2,10 @@ package io.github.pps5.sprint.feature.main.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.pps5.sprint.domain.goal.DailyGoal
-import io.github.pps5.sprint.domain.goal.Goal
-import io.github.pps5.sprint.domain.goal.MonthlyGoal
-import io.github.pps5.sprint.domain.goal.WeeklyGoal
+import io.github.pps5.sprint.domain.entity.goal.DailyGoal
+import io.github.pps5.sprint.domain.entity.goal.Goal
+import io.github.pps5.sprint.domain.entity.goal.MonthlyGoal
+import io.github.pps5.sprint.domain.entity.goal.WeeklyGoal
 import io.github.pps5.sprint.domain.valueobject.GoalTitle
 import io.github.pps5.sprint.domain.valueobject.Option
 import io.github.pps5.sprint.domain.valueobject.Week
