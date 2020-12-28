@@ -8,8 +8,8 @@ class GoalTitleTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["", " ", "　"])
-    fun `GoalTitle throws IllegalArgumentException when title is blank`(title: String) {
-        assertThrows<IllegalArgumentException> { GoalTitle(title) }
+    fun `throws IllegalArgumentException when title is blank`(title: String) {
+        assertThrows<IllegalArgumentException> { GoalTitle.of(title) }
     }
 
 }
