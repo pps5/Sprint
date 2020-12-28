@@ -11,7 +11,7 @@ import io.github.pps5.sprint.databinding.FragmentHomeBinding
 import io.github.pps5.sprint.feature.main.home.view.binder.setupWith
 import io.github.pps5.sprint.feature.main.home.view.binder.update
 import io.github.pps5.sprint.feature.main.home.view.item.DailyGoalItem
-import io.github.pps5.sprint.property.viewBinding
+import io.github.pps5.sprint.util.property.viewBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.android.viewmodel.ext.android.viewModel

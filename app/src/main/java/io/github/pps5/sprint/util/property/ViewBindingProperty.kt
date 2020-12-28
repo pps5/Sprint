@@ -1,4 +1,4 @@
-package io.github.pps5.sprint.property
+package io.github.pps5.sprint.util.property
 
 import android.view.View
 import androidx.fragment.app.Fragment
