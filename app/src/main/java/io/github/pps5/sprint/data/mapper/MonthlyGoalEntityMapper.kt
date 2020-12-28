@@ -10,7 +10,7 @@ fun List<MonthlyGoalEntity>.toDomain(): List<MonthlyGoal> {
     return this.map(MonthlyGoalEntity::toDomain)
 }
 
-fun MonthlyGoalEntity.toDomain(): MonthlyGoal {
+private fun MonthlyGoalEntity.toDomain(): MonthlyGoal {
     return MonthlyGoal(
         yearMonth = YearMonth.from(this.startDate),
         title = Option.apply(GoalTitle.of(this.title)),

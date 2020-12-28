@@ -9,7 +9,7 @@ fun List<DailyGoalEntity>.toDomain(): List<DailyGoal> {
     return this.map(DailyGoalEntity::toDomain)
 }
 
-fun DailyGoalEntity.toDomain(): DailyGoal {
+private fun DailyGoalEntity.toDomain(): DailyGoal {
     return DailyGoal(
         date = this.date,
         title = Option.apply(GoalTitle.of(this.title)),
