@@ -4,42 +4,12 @@ plugins {
     id 'kotlin-kapt'
 }
 
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+apply from: "$rootDir/gradle/android-common.gradle"
+apply from: "$rootDir/gradle/common.gradle"
 
+android {
     defaultConfig {
         applicationId "io.github.pps5.sprint"
-        minSdkVersion 26
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        debug {
-            debuggable true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
     }
     buildFeatures {
         viewBinding true
@@ -49,8 +19,9 @@ android {
 dependencies {
 
     implementation project(':domain')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(':data')
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.fragment:fragment-ktx:1.2.5'
@@ -61,34 +32,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
-    def room_version = "2.2.6"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    testImplementation "androidx.room:room-testing:$room_version"
-
     def groupie_version = "2.8.1"
     implementation "com.xwray:groupie:$groupie_version"
     implementation "com.xwray:groupie-viewbinding:$groupie_version"
 
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.3.0'
-    testImplementation('org.threeten:threetenbp:1.5.0') {
-        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
-    }
-
-    def koin_version = "2.2.2"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
-    testImplementation 'junit:junit:4.13.1'
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.2"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:5.6.2"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.2"
-    testImplementation "com.google.truth:truth:1.1"
-    testImplementation "io.mockk:mockk:1.10.3"
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

@@ -1,18 +1,18 @@
-package io.github.pps5.sprint.data.store.db.dao
+package io.github.pps5.sprint.data.internal.store.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.github.pps5.sprint.data.entity.goal.DailyGoalEntity
-import io.github.pps5.sprint.data.entity.goal.MonthlyGoalEntity
-import io.github.pps5.sprint.data.entity.goal.WeeklyGoalEntity
+import io.github.pps5.sprint.data.internal.entity.goal.DailyGoalEntity
+import io.github.pps5.sprint.data.internal.entity.goal.MonthlyGoalEntity
+import io.github.pps5.sprint.data.internal.entity.goal.WeeklyGoalEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.threeten.bp.LocalDate
 
 @Dao
-abstract class GoalDao {
+internal abstract class GoalDao {
 
     @Query("select * from dailygoalentity where date in (:dates)")
     protected abstract fun getDailyGoals(dates: List<LocalDate>): Flow<List<DailyGoalEntity>>

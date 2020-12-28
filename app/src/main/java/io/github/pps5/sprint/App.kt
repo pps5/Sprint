@@ -2,7 +2,10 @@ package io.github.pps5.sprint
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
-import io.github.pps5.sprint.di.module.*
+import io.github.pps5.sprint.data.di.dataModule
+import io.github.pps5.sprint.di.module.dateProviderModule
+import io.github.pps5.sprint.di.module.useCaseModules
+import io.github.pps5.sprint.di.module.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -17,11 +20,12 @@ class App : Application() {
         }
         startKoin {
             androidContext(this@App)
-            modules(viewModelModule)
-            modules(dataStoreModule)
-            modules(repositoryModules)
+            modules(
+                viewModelModule,
+                dataModule,
+                dateProviderModule
+            )
             modules(useCaseModules)
-            modules(dateProviderModule)
         }
     }
 }

@@ -1,10 +1,10 @@
-package io.github.pps5.sprint.data.entity.converter
+package io.github.pps5.sprint.data.internal.entity.converter
 
 import androidx.room.TypeConverter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 
-class LocalDateConverter {
+internal class LocalDateConverter {
 
     private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 

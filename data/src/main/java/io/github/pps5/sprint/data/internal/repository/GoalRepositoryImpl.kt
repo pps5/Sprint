@@ -1,41 +1,21 @@
-package io.github.pps5.sprint.data.repository
+package io.github.pps5.sprint.data.internal.repository
 
-import androidx.annotation.VisibleForTesting
-import io.github.pps5.sprint.data.entity.goal.DailyGoalEntity
-import io.github.pps5.sprint.data.entity.goal.MonthlyGoalEntity
-import io.github.pps5.sprint.data.entity.goal.WeeklyGoalEntity
-import io.github.pps5.sprint.data.mapper.toDomain
-import io.github.pps5.sprint.data.store.db.AppDatabase
+import io.github.pps5.sprint.data.internal.entity.goal.DailyGoalEntity
+import io.github.pps5.sprint.data.internal.entity.goal.MonthlyGoalEntity
+import io.github.pps5.sprint.data.internal.entity.goal.WeeklyGoalEntity
+import io.github.pps5.sprint.data.internal.mapper.toDomain
+import io.github.pps5.sprint.data.internal.store.db.AppDatabase
+import io.github.pps5.sprint.data.repository.GoalRepository
 import io.github.pps5.sprint.domain.entity.goal.DailyGoal
 import io.github.pps5.sprint.domain.entity.goal.MonthlyGoal
 import io.github.pps5.sprint.domain.entity.goal.WeeklyGoal
 import io.github.pps5.sprint.domain.valueobject.Week
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.koin.dsl.module
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
-val goalRepositoryModule = module {
-    single<GoalRepository> { GoalRepositoryImpl(get()) }
-}
-
-interface GoalRepository {
-    fun getMonthlyGoal(yearMonths: List<YearMonth>): Flow<List<MonthlyGoal>>
-    fun getWeeklyGoal(weeks: List<Week>): Flow<List<WeeklyGoal>>
-    fun getDailyGoals(days: List<LocalDate>): Flow<List<DailyGoal>>
-
-    suspend fun updateOrInsertMonthlyGoal(goal: MonthlyGoal)
-    suspend fun updateOrInsertWeeklyGoal(goal: WeeklyGoal)
-    suspend fun updateOrInsertDailyGoal(goal: DailyGoal)
-
-    suspend fun deleteMonthlyGoal(goal: MonthlyGoal)
-    suspend fun deleteWeeklyGoal(goal: WeeklyGoal)
-    suspend fun deleteDailyGoal(goal: DailyGoal)
-}
-
-@VisibleForTesting
-class GoalRepositoryImpl(
+internal class GoalRepositoryImpl(
     private val appDatabase: AppDatabase,
 ) : GoalRepository {
 

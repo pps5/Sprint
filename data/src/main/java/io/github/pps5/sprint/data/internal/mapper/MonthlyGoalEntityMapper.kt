@@ -1,12 +1,12 @@
-package io.github.pps5.sprint.data.mapper
+package io.github.pps5.sprint.data.internal.mapper
 
-import io.github.pps5.sprint.data.entity.goal.MonthlyGoalEntity
+import io.github.pps5.sprint.data.internal.entity.goal.MonthlyGoalEntity
 import io.github.pps5.sprint.domain.entity.goal.MonthlyGoal
 import io.github.pps5.sprint.domain.valueobject.GoalTitle
 import io.github.pps5.sprint.domain.valueobject.Option
 import org.threeten.bp.YearMonth
 
-fun List<MonthlyGoalEntity>.toDomain(): List<MonthlyGoal> {
+internal fun List<MonthlyGoalEntity>.toDomain(): List<MonthlyGoal> {
     return this.map(MonthlyGoalEntity::toDomain)
 }
 

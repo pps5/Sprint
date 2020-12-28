@@ -1,4 +1,4 @@
-package io.github.pps5.sprint.data.entity.goal
+package io.github.pps5.sprint.data.internal.entity.goal
 
 import androidx.room.Entity
 import androidx.room.Index
@@ -7,7 +7,7 @@ import io.github.pps5.sprint.domain.entity.goal.WeeklyGoal
 import org.threeten.bp.LocalDate
 
 @Entity(indices = [Index(value = ["startDate"])])
-data class WeeklyGoalEntity(
+internal data class WeeklyGoalEntity(
     @PrimaryKey var id: Long,
     var startDate: LocalDate,
     var title: String,
