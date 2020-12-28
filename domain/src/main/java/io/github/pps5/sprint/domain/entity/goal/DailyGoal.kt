@@ -5,10 +5,10 @@ import io.github.pps5.sprint.domain.valueobject.Option
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 
-data class DailyGoal(
+class DailyGoal(
     val date: LocalDate,
-    override val title: Option<GoalTitle>,
-    override val completedDate: Option<LocalDate>,
+    override var title: Option<GoalTitle>,
+    override var completedDate: Option<LocalDate>,
 ) : Goal {
 
     companion object {
@@ -17,5 +17,17 @@ data class DailyGoal(
 
     override fun getDateString(): String {
         return DateTimeFormatter.ofPattern(DATE_PATTERN).format(date)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return this.date == (other as? DailyGoal)?.date
+    }
+
+    override fun hashCode(): Int {
+        return date.hashCode()
+    }
+
+    override fun toString(): String {
+        return "DailyGoal(date=$date, title=$title, completedDate=$completedDate)"
     }
 }

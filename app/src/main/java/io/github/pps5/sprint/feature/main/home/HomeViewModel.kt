@@ -8,73 +8,51 @@ import io.github.pps5.sprint.domain.entity.goal.MonthlyGoal
 import io.github.pps5.sprint.domain.entity.goal.WeeklyGoal
 import io.github.pps5.sprint.domain.valueobject.GoalTitle
 import io.github.pps5.sprint.domain.valueobject.Option
-import io.github.pps5.sprint.domain.valueobject.Week
+import io.github.pps5.sprint.usecase.GetSprintGoalsUseCase
+import io.github.pps5.sprint.usecase.UpdateGoalUseCase
+import io.github.pps5.sprint.util.DateProvider
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
-import org.threeten.bp.YearMonth
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val dateProvider: DateProvider,
+    private val getSprintGoalsUseCase: GetSprintGoalsUseCase,
+    private val updateGoalUseCase: UpdateGoalUseCase,
+) : ViewModel() {
 
-    private val _state = MutableSharedFlow<State>(replay = 1)
-    val state: SharedFlow<State>
+    private val _state = MutableSharedFlow<Option<State>>(replay = 1)
+    val state: SharedFlow<Option<State>>
         get() = _state
 
     init {
-        viewModelScope.launch {
-            _state.emit(
-                State(
-                    dailyGoals = listOf(
-                        DailyGoal(
-                            LocalDate.of(2020, 12, 28),
-                            Option.apply(GoalTitle("Create app")),
-                            Option.None()
-                        ),
-                        DailyGoal(
-                            LocalDate.of(2020, 12, 29),
-                            Option.None(),
-                            Option.None()
-                        ),
-                        DailyGoal(
-                            LocalDate.of(2020, 12, 30),
-                            Option.apply(GoalTitle("Sample Goal")),
-                            Option.None()
-                        ),
-                        DailyGoal(
-                            LocalDate.of(2020, 12, 31),
-                            Option.None(),
-                            Option.None()
-                        ),
-                        DailyGoal(
-                            LocalDate.of(2021, 1, 1),
-                            Option.apply(GoalTitle("Sample Goal")),
-                            Option.None()
-                        ),
-                        DailyGoal(
-                            LocalDate.of(2021, 1, 2),
-                            Option.None(),
-                            Option.None()
-                        ),
-                    ),
-                    weeklyGoal = WeeklyGoal(
-                        Week(LocalDate.of(2020, 12, 28)),
-                        Option.None(),
-                        Option.None()
-                    ),
-                    monthlyGoal = MonthlyGoal(
-                        YearMonth.of(2020, 12),
-                        Option.None(),
-                        Option.None()
+        viewModelScope.launch(Dispatchers.IO) {
+            getSprintGoalsUseCase(dateProvider.now())
+                .collect {
+                    val newState = State(
+                        it.dailyGoals,
+                        it.weeklyGoal,
+                        it.monthlyGoal,
                     )
-                )
-            )
-            // todo: load from DB here
+                    _state.emit(Option.Some(newState))
+                }
         }
     }
 
-    fun onCompleteGoal(goal: Goal) {
-        // todo: update DB
+    fun onGoalCompleted(goal: Goal) {
+        goal.completeOn(dateProvider.now())
+        viewModelScope.launch(Dispatchers.IO) {
+            updateGoalUseCase(goal)
+        }
+    }
+
+    fun onGoalTitleUpdated(goal: Goal, newTitle: String) {
+        goal.title = Option.apply(GoalTitle.of(newTitle))
+        viewModelScope.launch(Dispatchers.IO) {
+            updateGoalUseCase(goal)
+        }
     }
 
     data class State(

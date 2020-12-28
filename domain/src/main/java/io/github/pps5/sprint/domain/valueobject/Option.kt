@@ -24,9 +24,21 @@ sealed class Option<T> {
         }
     }
 
-    fun unwrap(block: (T) -> Unit) {
+    inline fun unwrap(block: (T) -> Unit) {
         if (this is Some) {
             block(this.value)
+        }
+    }
+
+    fun get(): T {
+        return (this as Some).value
+    }
+
+    fun getOrNull(): T? {
+        return if (this is Some) {
+            this.value
+        } else {
+            null
         }
     }
 }

@@ -3,7 +3,6 @@ package io.github.pps5.sprint.feature.main.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -15,25 +14,35 @@ import io.github.pps5.sprint.feature.main.home.view.item.DailyGoalItem
 import io.github.pps5.sprint.property.viewBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModel()
     private val binding by viewBinding { FragmentHomeBinding.bind(it) }
     private val dailyGoalPagerAdapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.dailyGoals.setupWith(dailyGoalPagerAdapter)
         viewModel.state
-            .onEach(this::updateViews)
+            .onEach { it.unwrap { state -> updateViews(state) } }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun updateViews(state: HomeViewModel.State) {
-        binding.monthly.update(state.monthlyGoal, viewModel::onCompleteGoal)
-        binding.weekly.update(state.weeklyGoal, viewModel::onCompleteGoal)
-
-        val dailyGoalItems = state.dailyGoals.map { DailyGoalItem(it, viewModel::onCompleteGoal) }
+        binding.monthly.update(
+            state.monthlyGoal,
+            viewModel::onGoalCompleted,
+            viewModel::onGoalTitleUpdated
+        )
+        binding.weekly.update(
+            state.weeklyGoal,
+            viewModel::onGoalCompleted,
+            viewModel::onGoalTitleUpdated
+        )
+        val dailyGoalItems = state.dailyGoals.map { goal ->
+            DailyGoalItem(goal, viewModel::onGoalCompleted, viewModel::onGoalTitleUpdated)
+        }
         dailyGoalPagerAdapter.update(dailyGoalItems)
         dailyGoalPagerAdapter.notifyDataSetChanged()
     }

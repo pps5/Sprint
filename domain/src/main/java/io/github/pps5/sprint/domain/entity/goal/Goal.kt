@@ -5,11 +5,15 @@ import io.github.pps5.sprint.domain.valueobject.Option
 import org.threeten.bp.LocalDate
 
 interface Goal {
-    val title: Option<GoalTitle>
-    val completedDate: Option<LocalDate>
+    var title: Option<GoalTitle>
+    var completedDate: Option<LocalDate>
 
     fun isSet(): Boolean {
         return title is Option.Some
+    }
+
+    fun completeOn(date: LocalDate) {
+        completedDate = Option.Some(date)
     }
 
     fun getDateString(): String

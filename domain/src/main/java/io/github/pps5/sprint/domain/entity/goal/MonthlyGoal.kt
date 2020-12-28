@@ -6,10 +6,10 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 
-data class MonthlyGoal(
+class MonthlyGoal(
     val yearMonth: YearMonth,
-    override val title: Option<GoalTitle>,
-    override val completedDate: Option<LocalDate>,
+    override var title: Option<GoalTitle>,
+    override var completedDate: Option<LocalDate>,
 ) : Goal {
 
     companion object {
@@ -19,4 +19,17 @@ data class MonthlyGoal(
     override fun getDateString(): String {
         return DateTimeFormatter.ofPattern(DATE_PATTERN).format(yearMonth)
     }
+
+    override fun equals(other: Any?): Boolean {
+        return this.yearMonth == (other as? MonthlyGoal)?.yearMonth
+    }
+
+    override fun hashCode(): Int {
+        return yearMonth.hashCode()
+    }
+
+    override fun toString(): String {
+        return "MonthlyGoal(yearMonth=$yearMonth, title=$title, completedDate=$completedDate)"
+    }
+
 }

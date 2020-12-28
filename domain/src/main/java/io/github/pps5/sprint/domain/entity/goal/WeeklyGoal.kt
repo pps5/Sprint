@@ -7,10 +7,10 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 
 
-data class WeeklyGoal(
+class WeeklyGoal(
     val week: Week,
-    override val title: Option<GoalTitle>,
-    override val completedDate: Option<LocalDate>,
+    override var title: Option<GoalTitle>,
+    override var completedDate: Option<LocalDate>,
 ) : Goal {
 
     companion object {
@@ -25,5 +25,13 @@ data class WeeklyGoal(
             formatter.format(week.start),
             formatter.format(week.end),
         )
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return this.week == (other as? WeeklyGoal)?.week
+    }
+
+    override fun hashCode(): Int {
+        return week.hashCode()
     }
 }

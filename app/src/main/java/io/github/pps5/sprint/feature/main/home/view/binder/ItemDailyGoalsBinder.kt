@@ -13,11 +13,6 @@ fun ItemDailyGoalsBinding.setupWith(adapter: RecyclerView.Adapter<*>) {
     setupTabLayout()
 }
 
-fun ItemDailyGoalsBinding.updateArrows(isFirst: Boolean, isEnd: Boolean) {
-    left.visibility = if (isFirst) View.INVISIBLE else View.VISIBLE
-    right.visibility = if (isEnd) View.INVISIBLE else View.VISIBLE
-}
-
 private fun ItemDailyGoalsBinding.setupViewPager(adapter: RecyclerView.Adapter<*>) {
     goalPager.adapter = adapter
     (goalPager.getChildAt(0) as RecyclerView).let {
@@ -46,4 +41,9 @@ private fun ItemDailyGoalsBinding.setupTabLayout() {
     })
     left.setOnClickListener { goalPager.currentItem -= 1 }
     right.setOnClickListener { goalPager.currentItem += 1 }
+}
+
+private fun ItemDailyGoalsBinding.updateArrows(isFirst: Boolean, isEnd: Boolean) {
+    left.visibility = if (isFirst) View.INVISIBLE else View.VISIBLE
+    right.visibility = if (isEnd) View.INVISIBLE else View.VISIBLE
 }

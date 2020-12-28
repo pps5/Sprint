@@ -14,6 +14,7 @@
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:includeFontPadding">true</item>
+        <item name="android:imeOptions">actionDone</item>
         <item name="android:hint">@string/tap_to_input_goal</item>
         <item name="android:focusedByDefault">false</item>
         <item name="colorControlNormal">@android:color/transparent</item>
