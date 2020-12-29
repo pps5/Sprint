@@ -8,8 +8,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import io.github.pps5.sprint.R
 import io.github.pps5.sprint.databinding.FragmentHomeBinding
+import io.github.pps5.sprint.feature.main.home.view.binder.bind
 import io.github.pps5.sprint.feature.main.home.view.binder.setupWith
-import io.github.pps5.sprint.feature.main.home.view.binder.update
 import io.github.pps5.sprint.feature.main.home.view.item.DailyGoalItem
 import io.github.pps5.sprint.util.property.viewBinding
 import kotlinx.coroutines.flow.launchIn
@@ -25,17 +25,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.dailyGoals.setupWith(dailyGoalPagerAdapter)
         viewModel.state
-            .onEach { it.unwrap { state -> updateViews(state) } }
+            .onEach { state -> updateViews(state) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun updateViews(state: HomeViewModel.State) {
-        binding.monthly.update(
+        binding.monthly.bind(
             state.monthlyGoal,
             viewModel::onGoalCompleted,
             viewModel::onGoalTitleUpdated
         )
-        binding.weekly.update(
+        binding.weekly.bind(
             state.weeklyGoal,
             viewModel::onGoalCompleted,
             viewModel::onGoalTitleUpdated

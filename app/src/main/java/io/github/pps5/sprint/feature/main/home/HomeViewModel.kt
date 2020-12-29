@@ -2,6 +2,7 @@ package io.github.pps5.sprint.feature.main.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.pps5.sprint.common.DateProvider
 import io.github.pps5.sprint.domain.entity.goal.DailyGoal
 import io.github.pps5.sprint.domain.entity.goal.Goal
 import io.github.pps5.sprint.domain.entity.goal.MonthlyGoal
@@ -10,7 +11,6 @@ import io.github.pps5.sprint.domain.valueobject.GoalTitle
 import io.github.pps5.sprint.domain.valueobject.Option
 import io.github.pps5.sprint.usecase.GetSprintGoalsUseCase
 import io.github.pps5.sprint.usecase.UpdateGoalUseCase
-import io.github.pps5.sprint.util.DateProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -23,8 +23,8 @@ class HomeViewModel(
     private val updateGoalUseCase: UpdateGoalUseCase,
 ) : ViewModel() {
 
-    private val _state = MutableSharedFlow<Option<State>>(replay = 1)
-    val state: SharedFlow<Option<State>>
+    private val _state = MutableSharedFlow<State>(replay = 1)
+    val state: SharedFlow<State>
         get() = _state
 
     init {
@@ -36,7 +36,7 @@ class HomeViewModel(
                         it.weeklyGoal,
                         it.monthlyGoal,
                     )
-                    _state.emit(Option.Some(newState))
+                    _state.emit(newState)
                 }
         }
     }

@@ -1,4 +1,4 @@
-package io.github.pps5.sprint.util
+package io.github.pps5.sprint.common
 
 import org.threeten.bp.LocalDate
 
