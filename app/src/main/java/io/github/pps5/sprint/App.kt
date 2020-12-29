@@ -2,9 +2,9 @@ package io.github.pps5.sprint
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
-import io.github.pps5.sprint.data.di.dataModule
+import io.github.pps5.sprint.di.module.dataModule
 import io.github.pps5.sprint.di.module.dateProviderModule
-import io.github.pps5.sprint.di.module.useCaseModules
+import io.github.pps5.sprint.di.module.useCaseModule
 import io.github.pps5.sprint.di.module.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -23,9 +23,9 @@ class App : Application() {
             modules(
                 viewModelModule,
                 dataModule,
-                dateProviderModule
+                dateProviderModule,
+                useCaseModule,
             )
-            modules(useCaseModules)
         }
     }
 }

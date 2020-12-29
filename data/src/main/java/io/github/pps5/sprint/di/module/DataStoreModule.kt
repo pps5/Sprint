@@ -1,4 +1,4 @@
-package io.github.pps5.sprint.data.di
+package io.github.pps5.sprint.di.module
 
 import androidx.room.Room
 import io.github.pps5.sprint.data.internal.repository.GoalRepositoryImpl

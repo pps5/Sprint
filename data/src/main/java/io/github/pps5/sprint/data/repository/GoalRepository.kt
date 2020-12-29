@@ -13,9 +13,9 @@ interface GoalRepository {
     fun getWeeklyGoal(weeks: List<Week>): Flow<List<WeeklyGoal>>
     fun getDailyGoals(days: List<LocalDate>): Flow<List<DailyGoal>>
 
-    suspend fun updateOrInsertMonthlyGoal(goal: MonthlyGoal)
-    suspend fun updateOrInsertWeeklyGoal(goal: WeeklyGoal)
-    suspend fun updateOrInsertDailyGoal(goal: DailyGoal)
+    suspend fun insertOrUpdateMonthlyGoal(goal: MonthlyGoal)
+    suspend fun insertOrUpdateWeeklyGoal(goal: WeeklyGoal)
+    suspend fun insertOrUpdateDailyGoal(goal: DailyGoal)
 
     suspend fun deleteMonthlyGoal(goal: MonthlyGoal)
     suspend fun deleteWeeklyGoal(goal: WeeklyGoal)

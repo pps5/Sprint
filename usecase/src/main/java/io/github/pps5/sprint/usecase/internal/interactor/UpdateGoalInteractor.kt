@@ -1,25 +1,16 @@
-package io.github.pps5.sprint.usecase
+package io.github.pps5.sprint.usecase.internal.interactor
 
-import androidx.annotation.VisibleForTesting
 import io.github.pps5.sprint.data.repository.GoalRepository
 import io.github.pps5.sprint.domain.entity.goal.DailyGoal
 import io.github.pps5.sprint.domain.entity.goal.Goal
 import io.github.pps5.sprint.domain.entity.goal.MonthlyGoal
 import io.github.pps5.sprint.domain.entity.goal.WeeklyGoal
-import org.koin.dsl.module
+import io.github.pps5.sprint.usecase.UpdateGoalUseCase
 
-val updateGoalUseCaseModule = module {
-    factory<UpdateGoalUseCase> { UpdateGoalInteractor(get()) }
-}
-
-interface UpdateGoalUseCase {
-    suspend operator fun invoke(goal: Goal)
-}
-
-@VisibleForTesting
-class UpdateGoalInteractor(
+internal class UpdateGoalInteractor(
     private val goalRepository: GoalRepository
 ) : UpdateGoalUseCase {
+
     override suspend fun invoke(goal: Goal) {
         if (goal.isSet()) {
             insertOrUpdateGoal(goal)
@@ -30,9 +21,9 @@ class UpdateGoalInteractor(
 
     private suspend fun insertOrUpdateGoal(goal: Goal) {
         when (goal) {
-            is MonthlyGoal -> goalRepository.updateOrInsertMonthlyGoal(goal)
-            is WeeklyGoal -> goalRepository.updateOrInsertWeeklyGoal(goal)
-            is DailyGoal -> goalRepository.updateOrInsertDailyGoal(goal)
+            is MonthlyGoal -> goalRepository.insertOrUpdateMonthlyGoal(goal)
+            is WeeklyGoal -> goalRepository.insertOrUpdateWeeklyGoal(goal)
+            is DailyGoal -> goalRepository.insertOrUpdateDailyGoal(goal)
         }
     }
 
@@ -45,4 +36,3 @@ class UpdateGoalInteractor(
 
     }
 }
-

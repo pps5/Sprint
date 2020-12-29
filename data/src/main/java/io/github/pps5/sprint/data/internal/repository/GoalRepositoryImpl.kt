@@ -39,15 +39,15 @@ internal class GoalRepositoryImpl(
             .map(List<DailyGoalEntity>::toDomain)
     }
 
-    override suspend fun updateOrInsertMonthlyGoal(goal: MonthlyGoal) {
+    override suspend fun insertOrUpdateMonthlyGoal(goal: MonthlyGoal) {
         appDatabase.goalDao().upsertMonthlyGoal(MonthlyGoalEntity.from(goal))
     }
 
-    override suspend fun updateOrInsertWeeklyGoal(goal: WeeklyGoal) {
+    override suspend fun insertOrUpdateWeeklyGoal(goal: WeeklyGoal) {
         appDatabase.goalDao().upsertWeeklyGoal(WeeklyGoalEntity.from(goal))
     }
 
-    override suspend fun updateOrInsertDailyGoal(goal: DailyGoal) {
+    override suspend fun insertOrUpdateDailyGoal(goal: DailyGoal) {
         appDatabase.goalDao().upsertDailyGoal(DailyGoalEntity.from(goal))
     }
 

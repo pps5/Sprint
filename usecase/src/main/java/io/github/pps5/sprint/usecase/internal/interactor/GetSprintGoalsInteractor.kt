@@ -1,47 +1,21 @@
-package io.github.pps5.sprint.usecase
+package io.github.pps5.sprint.usecase.internal.interactor
 
-import androidx.annotation.VisibleForTesting
 import io.github.pps5.sprint.data.repository.GoalRepository
 import io.github.pps5.sprint.domain.entity.goal.DailyGoal
 import io.github.pps5.sprint.domain.entity.goal.MonthlyGoal
 import io.github.pps5.sprint.domain.entity.goal.WeeklyGoal
 import io.github.pps5.sprint.domain.valueobject.Option
 import io.github.pps5.sprint.domain.valueobject.Week
+import io.github.pps5.sprint.usecase.GetSprintGoalsUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import org.koin.dsl.module
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
-val getSprintGoalsUseCaseModule = module {
-    factory<GetSprintGoalsUseCase> { GetSprintGoalsInteractor(get()) }
-}
-
-interface GetSprintGoalsUseCase {
-    suspend operator fun invoke(day: LocalDate): Flow<Response>
-
-    class Response(
-        val dailyGoals: List<DailyGoal>,
-        val weeklyGoal: WeeklyGoal,
-        val monthlyGoal: MonthlyGoal,
-    )
-}
-
-@VisibleForTesting
-class GetSprintGoalsInteractor(
+internal class GetSprintGoalsInteractor(
     private val goalRepository: GoalRepository,
 ) : GetSprintGoalsUseCase {
-
-    private fun fillMissingDays(
-        days: List<LocalDate>,
-        dailyGoals: List<DailyGoal>
-    ): List<DailyGoal> {
-        return days.map { day ->
-            dailyGoals.firstOrNull { it.date == day }
-                ?: DailyGoal(day, Option.None(), Option.None())
-        }
-    }
 
     override suspend fun invoke(day: LocalDate): Flow<GetSprintGoalsUseCase.Response> {
         val yearMonth = YearMonth.from(day)
@@ -58,4 +32,15 @@ class GetSprintGoalsInteractor(
             GetSprintGoalsUseCase.Response(fillMissingDays(days, daily), w, m)
         }
     }
+
+    private fun fillMissingDays(
+        days: List<LocalDate>,
+        dailyGoals: List<DailyGoal>
+    ): List<DailyGoal> {
+        return days.map { day ->
+            dailyGoals.firstOrNull { it.date == day }
+                ?: DailyGoal(day, Option.None(), Option.None())
+        }
+    }
+
 }

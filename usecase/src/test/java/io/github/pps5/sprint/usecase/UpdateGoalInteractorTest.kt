@@ -7,6 +7,7 @@ import io.github.pps5.sprint.domain.entity.goal.WeeklyGoal
 import io.github.pps5.sprint.domain.valueobject.GoalTitle
 import io.github.pps5.sprint.domain.valueobject.Option
 import io.github.pps5.sprint.domain.valueobject.Week
+import io.github.pps5.sprint.usecase.internal.interactor.UpdateGoalInteractor
 import io.mockk.clearMocks
 import io.mockk.coVerify
 import io.mockk.confirmVerified
@@ -17,7 +18,7 @@ import org.junit.jupiter.api.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
-class UpdateGoalInteractorTest {
+internal class UpdateGoalInteractorTest {
 
     lateinit var goalRepository: GoalRepository
     lateinit var target: UpdateGoalInteractor
@@ -54,19 +55,19 @@ class UpdateGoalInteractorTest {
 
         val dailyGoal = DailyGoal(LocalDate.of(2020, 12, 28), goalTitle, Option.None())
         target.invoke(dailyGoal)
-        coVerify(exactly = 1) { goalRepository.updateOrInsertDailyGoal(dailyGoal) }
+        coVerify(exactly = 1) { goalRepository.insertOrUpdateDailyGoal(dailyGoal) }
         confirmVerified(goalRepository)
         clearMocks(goalRepository, recordedCalls = true)
 
         val weeklyGoal = WeeklyGoal(Week(LocalDate.of(2020, 12, 28)), goalTitle, Option.None())
         target.invoke(weeklyGoal)
-        coVerify(exactly = 1) { goalRepository.updateOrInsertWeeklyGoal(weeklyGoal) }
+        coVerify(exactly = 1) { goalRepository.insertOrUpdateWeeklyGoal(weeklyGoal) }
         confirmVerified(goalRepository)
         clearMocks(goalRepository, recordedCalls = true)
 
         val monthlyGoal = MonthlyGoal(YearMonth.of(2020, 12), goalTitle, Option.None())
         target.invoke(monthlyGoal)
-        coVerify(exactly = 1) { goalRepository.updateOrInsertMonthlyGoal(monthlyGoal) }
+        coVerify(exactly = 1) { goalRepository.insertOrUpdateMonthlyGoal(monthlyGoal) }
         confirmVerified(goalRepository)
     }
 }
