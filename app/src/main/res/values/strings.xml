@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Sprint</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_stats">Stats</string>
     <string name="menu_history">History</string>
+
+    <string name="set_goal">Set Goal</string>
+    <string name="complete">Complete</string>
+    <string name="tap_to_input_goal">Tap to input goal</string>
+    <string name="completed">Completed</string>
 </resources>

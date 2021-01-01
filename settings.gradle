@@ -1,2 +1,5 @@
-include ':app'
 rootProject.name = "Sprint"
+include ':app'
+include ':domain'
+include ':data'
+include ':usecase'
