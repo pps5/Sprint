@@ -32,16 +32,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun updateViews(state: HomeViewModel.State) {
         binding.monthly.bind(
             state.monthlyGoal,
-            viewModel::onGoalCompleted,
+            viewModel::onToggleComplete,
             viewModel::onGoalTitleUpdated
         )
         binding.weekly.bind(
             state.weeklyGoal,
-            viewModel::onGoalCompleted,
+            viewModel::onToggleComplete,
             viewModel::onGoalTitleUpdated
         )
         val dailyGoalItems = state.dailyGoals.map { goal ->
-            DailyGoalItem(goal, viewModel::onGoalCompleted, viewModel::onGoalTitleUpdated)
+            DailyGoalItem(goal, viewModel::onToggleComplete, viewModel::onGoalTitleUpdated)
         }
         dailyGoalPagerAdapter.update(dailyGoalItems)
         dailyGoalPagerAdapter.notifyDataSetChanged()

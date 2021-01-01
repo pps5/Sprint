@@ -41,8 +41,8 @@ class HomeViewModel(
         }
     }
 
-    fun onGoalCompleted(goal: Goal) {
-        goal.completeOn(dateProvider.now())
+    fun onToggleComplete(goal: Goal) {
+        goal.toggleComplete(dateProvider.now())
         viewModelScope.launch(Dispatchers.IO) {
             updateGoalUseCase(goal)
         }

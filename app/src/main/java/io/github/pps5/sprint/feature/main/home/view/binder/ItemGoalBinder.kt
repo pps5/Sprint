@@ -3,12 +3,14 @@ package io.github.pps5.sprint.feature.main.home.view.binder
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.google.android.material.button.MaterialButton
+import io.github.pps5.sprint.R
 import io.github.pps5.sprint.databinding.ItemGoalBinding
 import io.github.pps5.sprint.domain.entity.goal.Goal
 
 fun ItemGoalBinding.bind(
     newGoal: Goal,
-    onCompleteListener: (Goal) -> Unit,
+    onToggleCompleteListener: (Goal) -> Unit,
     onTitleUpdatedListener: (Goal, String) -> Unit,
 ) {
     fun bindTitle() {
@@ -40,8 +42,15 @@ fun ItemGoalBinding.bind(
 
     fun setupCompleteButton() {
         complete.isEnabled = newGoal.isSet()
-        
-        complete.setOnClickListener { onCompleteListener(newGoal) }
+        if (newGoal.isCompleted()) {
+            complete.setIconResource(R.drawable.completed)
+            complete.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+            complete.setText(R.string.completed)
+        } else {
+            complete.icon = null
+            complete.setText(R.string.complete)
+        }
+        complete.setOnClickListener { onToggleCompleteListener(newGoal) }
     }
 
 

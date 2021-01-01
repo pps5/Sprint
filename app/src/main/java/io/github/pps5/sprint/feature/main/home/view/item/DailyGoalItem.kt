@@ -9,11 +9,11 @@ import io.github.pps5.sprint.feature.main.home.view.binder.bind
 
 class DailyGoalItem(
     private val goal: Goal,
-    private val onCompleteListener: (Goal) -> Unit,
+    private val onToggleCompleteListener: (Goal) -> Unit,
     private val onTitleUpdatedListener: (Goal, String) -> Unit,
 ) : BindableItem<ItemGoalBinding>() {
     override fun bind(viewBinding: ItemGoalBinding, position: Int) {
-        viewBinding.bind(goal, onCompleteListener, onTitleUpdatedListener)
+        viewBinding.bind(goal, onToggleCompleteListener, onTitleUpdatedListener)
     }
 
     override fun getLayout(): Int {

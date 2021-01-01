@@ -6,6 +6,12 @@
         <item name="cornerRadius">8dp</item>
     </style>
 
+    <style name="cardCompletedButtonStyle" parent="cardButtonStyle">
+        <item name="icon">@drawable/completed</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:text">@string/completed</item>
+    </style>
+
     <style name="cardEditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:lines">1</item>
         <item name="android:inputType">textNoSuggestions</item>

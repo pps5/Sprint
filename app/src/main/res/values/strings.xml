@@ -8,4 +8,5 @@
     <string name="set_goal">Set Goal</string>
     <string name="complete">Complete</string>
     <string name="tap_to_input_goal">Tap to input goal</string>
+    <string name="completed">Completed</string>
 </resources>

@@ -40,7 +40,6 @@
             app:layout_constraintTop_toBottomOf="@id/period"
             tools:ignore="LabelFor" />
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/complete"
             style="@style/cardButtonStyle"

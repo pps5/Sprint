@@ -12,8 +12,16 @@ interface Goal {
         return title is Option.Some
     }
 
-    fun completeOn(date: LocalDate) {
-        completedDate = Option.Some(date)
+    fun isCompleted(): Boolean {
+        return completedDate is Option.Some
+    }
+
+    fun toggleComplete(date: LocalDate) {
+        completedDate = if (completedDate is Option.Some) {
+            Option.None()
+        } else {
+            Option.Some(date)
+        }
     }
 
     fun getDateString(): String
